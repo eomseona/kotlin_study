@@ -1,29 +1,36 @@
 package com.example.chap13
 
-import android.app.Activity
-import android.content.Intent
+
+import android.os.*
 import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import android.util.Log
+
 import com.example.chap13.databinding.ActivityMainBinding
+import kotlin.concurrent.thread
+import kotlin.system.measureTimeMillis
 
 class MainActivity : AppCompatActivity() {
-    lateinit var binding : ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        title = "Main Activity"
 
-        binding.button.setOnClickListener{
-            val intent = Intent(this, DetailActivity::class.java)
-            startActivityForResult(intent, 10)
-        }
-    }
+        binding.clickBtn.setOnClickListener {
+            thread {
+                var sum = 0L
+                var time = measureTimeMillis {
+                    for (i in 1..10) {
+                        SystemClock.sleep(1000)
+                        sum += i
+                    }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 10 && resultCode == Activity.RESULT_OK){
-            binding.result.text = data?.getStringExtra("resultData")
+                    runOnUiThread {
+                        binding.resultView.text = "sum: $sum"
+                    }
+                }
+                Log.d("kkang", "time: $time")
+            }
         }
     }
 }

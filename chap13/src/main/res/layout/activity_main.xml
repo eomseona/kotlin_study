@@ -8,15 +8,22 @@
     android:gravity="center">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/clickBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Activity" />
+        android:text="CLick" />
 
     <TextView
-        android:id="@+id/result"
+        android:id="@+id/resultView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Result" />
+        android:text="result view"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+
 
 </LinearLayout>
